@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CoGîte — Conciergerie de location courte durée en Hainaut</title>
+<meta name="description" content="CoGîte : conciergerie et co-hébergement pour locations courte durée (Airbnb, Booking) à Silly et dans un rayon de 30 km — Ath, Lessines, Enghien, Soignies, Brugelette, Chièvres, Mons. Vous publiez l'annonce, on s'occupe de tout le reste.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --creme:#F5F2EB;
+  --vert:#12211F;
+  --dore:#C69B3E;
+  --dore-clair:#E3C97E;
+  --carte:#FFFFFF;
+  --bordure:#DDD5C6;
+  --texte:#1E1B16;
+  --texte-doux:#57503F;
+  --rayon:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--creme);
+  color:var(--texte);
+  line-height:1.6;
+  font-size:1rem;
+}
+.conteneur{max-width:1080px;margin:0 auto;padding:0 1.25rem;}
+section{padding:3.5rem 0;}
+h1,h2,h3{font-family:"Archivo",system-ui,sans-serif;font-weight:700;line-height:1.2;letter-spacing:-.01em;}
+h2{font-size:1.6rem;margin-bottom:1.5rem;}
+h3{font-size:1.15rem;margin-bottom:.5rem;}
+p{color:var(--texte-doux);}
+a{color:var(--dore);}
+ul{list-style:none;}
+img{max-width:100%;display:block;}
+
+/* ===== Header sticky ===== */
+header{
+  position:sticky;top:0;z-index:50;
+  background:var(--vert);
+  border-bottom:1px solid rgba(245,242,235,.12);
+}
+.barre{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.25rem;max-width:1080px;margin:0 auto;}
+.logo{font-family:"Archivo",system-ui,sans-serif;font-weight:800;font-size:1.2rem;color:var(--creme);text-decoration:none;letter-spacing:.02em;}
+.logo span{color:var(--dore);}
+nav ul{display:flex;gap:1.25rem;}
+nav a{color:var(--creme);text-decoration:none;font-weight:600;font-size:.95rem;}
+nav a:hover,nav a:focus-visible{color:var(--dore-clair);text-decoration:underline;}
+
+/* ===== Boutons ===== */
+.btn{
+  display:inline-block;background:var(--dore);color:var(--vert);
+  padding:.85rem 1.6rem;border-radius:999px;font-weight:700;
+  font-family:"Archivo",system-ui,sans-serif;
+  text-decoration:none;border:none;cursor:pointer;font-size:1rem;
+}
+.btn:hover,.btn:focus-visible{background:var(--dore-clair);}
+.btn-contour{
+  background:transparent;color:var(--vert);
+  border:2px solid var(--dore);
+}
+.btn-contour:hover,.btn-contour:focus-visible{background:var(--dore);color:var(--vert);}
+
+/* ===== Hero : photo gauche, texte droite ===== */
+.hero{padding:3rem 0 0;}
+.hero .grille{display:grid;gap:1.75rem;align-items:center;}
+.hero figure{border-radius:var(--rayon);overflow:hidden;}
+.hero figure img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3;}
+.hero .etiquette{
+  display:inline-block;background:var(--vert);color:var(--dore-clair);
+  font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:.3rem .9rem;border-radius:999px;margin-bottom:1.1rem;
+}
+.hero h1{font-size:1.9rem;margin-bottom:1rem;}
+.hero p{max-width:52ch;margin-bottom:1.6rem;font-size:1.05rem;}
+.hero .bandeau-communes{
+  max-width:none;margin-bottom:0;margin-top:2.5rem;background:var(--vert);color:var(--creme);
+  text-align:center;padding:.85rem 1rem;font-size:.92rem;letter-spacing:.04em;
+}
+.bandeau-communes strong{color:var(--dore-clair);}
+
+/* ===== 5 bénéfices en bandeau ===== */
+.benefices{background:var(--creme);padding:2.2rem 0;}
+.benefices ul{display:grid;grid-template-columns:repeat(2,1fr);gap:.9rem;}
+.benefices li{
+  background:var(--carte);border:1px solid var(--bordure);border-radius:var(--rayon);
+  padding:1rem .8rem;text-align:center;font-weight:600;font-size:.92rem;
+}
+.benefices .icone{font-size:1.6rem;display:block;margin-bottom:.35rem;}
+
+/* ===== 3 promesses ===== */
+.promesses .colonnes{display:grid;gap:1.25rem;}
+.colonne{
+  background:var(--carte);border:1px solid var(--bordure);border-radius:var(--rayon);
+  padding:1.6rem 1.4rem;
+}
+.colonne .num{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:2.2rem;height:2.2rem;border-radius:50%;
+  background:var(--dore);color:var(--vert);
+  font-family:"Archivo",system-ui,sans-serif;font-weight:800;margin-bottom:.8rem;
+}
+
+/* ===== Services + photos intercalées ===== */
+.services-liste li{
+  background:var(--carte);border:1px solid var(--bordure);border-radius:var(--rayon);
+  padding:1.3rem 1.4rem;margin-bottom:1rem;
+}
+.services-liste li.phare{border:2px solid var(--dore);}
+.services-liste strong{color:var(--vert);}
+.badge{
+  display:inline-block;background:var(--dore);color:var(--vert);font-size:.75rem;
+  font-weight:800;font-family:"Archivo",system-ui,sans-serif;
+  text-transform:uppercase;letter-spacing:.05em;
+  padding:.2rem .7rem;border-radius:999px;margin-bottom:.6rem;
+}
+.photo-inter{
+  border-radius:var(--rayon);overflow:hidden;margin:0 0 1rem;
+  border:1px solid var(--bordure);
+}
+.photo-inter img{width:100%;object-fit:cover;aspect-ratio:16/8;}
+
+/* ===== Étapes ===== */
+.etapes ol{list-style:none;counter-reset:etape;display:grid;gap:1.25rem;}
+.etapes li{
+  counter-increment:etape;background:var(--carte);
+  border:1px solid var(--bordure);border-radius:var(--rayon);padding:1.5rem 1.4rem;
+}
+.etapes li::before{
+  content:counter(etape);
+  display:inline-flex;align-items:center;justify-content:center;
+  width:2.4rem;height:2.4rem;border-radius:50%;
+  background:var(--dore);color:var(--vert);
+  font-family:"Archivo",system-ui,sans-serif;font-weight:800;font-size:1.1rem;
+  margin-bottom:.7rem;
+}
+
+/* ===== À propos (fond vert foncé) ===== */
+.apropos{background:var(--vert);color:var(--creme);}
+.apropos h2,.apropos h3{color:var(--creme);}
+.apropos p{color:#D8D2C4;}
+.apropos .bloc{display:grid;gap:1.5rem;align-items:center;}
+.photo-placeholder{
+  aspect-ratio:4/5;max-width:280px;margin:0 auto;width:100%;
+  border-radius:var(--rayon);
+  background:rgba(245,242,235,.06);
+  border:2px dashed rgba(198,155,62,.55);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--dore-clair);font-weight:700;text-align:center;padding:1rem;font-size:.95rem;
+  font-family:"Archivo",system-ui,sans-serif;letter-spacing:.08em;
+}
+
+/* ===== 3 cartes confiance ===== */
+.confiance .cartes{display:grid;gap:1.25rem;}
+.confiance .carte{
+  background:var(--carte);border-left:5px solid var(--dore);
+  border-radius:var(--rayon);padding:1.4rem 1.3rem;
+}
+
+/* ===== Chaîne commission ===== */
+.commission .chaine{
+  display:flex;flex-direction:column;align-items:stretch;gap:.6rem;
+  max-width:520px;margin:1.5rem auto;
+}
+.commission .maillon{
+  background:var(--carte);border:1px solid var(--bordure);border-radius:var(--rayon);
+  padding:.9rem 1.2rem;text-align:center;font-weight:700;
+}
+.commission .maillon.final{
+  background:var(--vert);color:var(--dore-clair);border-color:var(--vert);
+}
+.commission .fleche{text-align:center;color:var(--dore);font-size:1.2rem;line-height:1;}
+.commission .intro{max-width:56ch;margin:0 auto;text-align:center;}
+
+/* ===== Tarifs ===== */
+.tarifs .grille{display:grid;gap:1.25rem;max-width:760px;margin:0 auto;}
+.tarif{
+  background:var(--carte);border:1px solid var(--bordure);border-radius:var(--rayon);
+  padding:1.6rem 1.4rem;display:flex;flex-direction:column;
+}
+.tarif.vedette{border:2px solid var(--dore);}
+.tarif .prix{font-size:1.7rem;font-weight:800;color:var(--dore);margin:.4rem 0 .2rem;font-family:"Archivo",system-ui,sans-serif;}
+.tarif .prix-suite{font-size:1.05rem;font-weight:700;color:var(--texte);margin-bottom:.8rem;}
+.tarif .prix-suite small{display:block;font-weight:400;color:var(--texte-doux);font-size:.85rem;}
+.tarif ul{margin:.6rem 0 1.2rem;}
+.tarif ul li{padding-left:1.3rem;position:relative;margin-bottom:.4rem;color:var(--texte-doux);font-size:.95rem;}
+.tarif ul li::before{content:"\2713";position:absolute;left:0;color:var(--dore);font-weight:700;}
+.tarif .btn{margin-top:auto;text-align:center;}
+
+/* ===== Bloc revenu avec photo extérieur ===== */
+.revenu{
+  margin-top:2.5rem;background:var(--vert);
+  color:var(--creme);border-radius:var(--rayon);overflow:hidden;
+}
+.revenu .grille{display:grid;}
+.revenu figure img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3;}
+.revenu .txt{padding:2rem 1.6rem;text-align:center;}
+.revenu h3{color:var(--creme);font-size:1.3rem;}
+.revenu .fourchette{font-size:1.55rem;font-weight:800;color:var(--dore);margin:.6rem 0;font-family:"Archivo",system-ui,sans-serif;}
+.revenu p{color:#D8D2C4;font-size:.9rem;max-width:52ch;margin:0 auto 1.4rem;}
+
+/* ===== FAQ ===== */
+.faq details{
+  background:var(--carte);border:1px solid var(--bordure);
+  border-radius:var(--rayon);margin-bottom:.8rem;overflow:hidden;
+}
+.faq summary{
+  cursor:pointer;padding:1.1rem 1.3rem;font-weight:700;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;
+}
+.faq summary::-webkit-details-marker{display:none;}
+.faq summary::after{content:"+";font-size:1.3rem;color:var(--dore);flex-shrink:0;}
+.faq details[open] summary::after{content:"\2212";}
+.faq details p{padding:0 1.3rem 1.2rem;}
+
+/* ===== Contact (fond vert foncé) ===== */
+.contact{background:var(--vert);}
+.contact h2{color:var(--creme);}
+.contact form{
+  background:var(--carte);border:1px solid var(--bordure);border-radius:var(--rayon);
+  padding:1.8rem 1.4rem;max-width:640px;margin:0 auto;
+}
+.contact label{display:block;font-weight:600;margin-bottom:.3rem;font-size:.95rem;}
+.contact input,.contact textarea,.contact select{
+  width:100%;padding:.75rem .9rem;border:1px solid var(--bordure);border-radius:8px;
+  font:inherit;margin-bottom:1.1rem;background:var(--creme);color:var(--texte);
+}
+.contact input:focus,.contact textarea:focus,.contact select:focus{
+  outline:2px solid var(--dore);outline-offset:1px;
+}
+.contact .btn{width:100%;}
+.form-note{font-size:.85rem;text-align:center;margin-top:.9rem;}
+.form-confirmation{
+  background:var(--carte);border:2px solid var(--dore);border-radius:var(--rayon);
+  padding:2rem 1.6rem;max-width:640px;margin:0 auto;text-align:center;
+}
+.form-confirmation p{margin-bottom:0;color:var(--texte);}
+.form-confirmation .icone{font-size:2rem;display:block;margin-bottom:.6rem;}
+
+/* ===== Footer ===== */
+footer{background:var(--vert);color:#D8D2C4;padding:2.5rem 0 2rem;font-size:.9rem;border-top:1px solid rgba(245,242,235,.12);}
+footer a{color:var(--dore-clair);}
+footer .pied{display:grid;gap:1.2rem;}
+footer .legal{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1rem;}
+footer .marque{font-family:"Archivo",system-ui,sans-serif;font-weight:800;font-size:1.1rem;color:var(--creme);}
+
+/* ===== Desktop ===== */
+@media (min-width:640px){
+  h2{font-size:1.9rem;}
+  .hero h1{font-size:2.3rem;}
+  .hero .grille{grid-template-columns:1.05fr 1fr;gap:2.5rem;}
+  .revenu .fourchette{font-size:2rem;}
+  .benefices ul{grid-template-columns:repeat(5,1fr);}
+  .promesses .colonnes{grid-template-columns:repeat(3,1fr);}
+  .etapes ol{grid-template-columns:repeat(3,1fr);}
+  .apropos .bloc{grid-template-columns:280px 1fr;}
+  .confiance .cartes{grid-template-columns:repeat(3,1fr);}
+  .tarifs .grille{grid-template-columns:repeat(2,1fr);}
+  .revenu .grille{grid-template-columns:1fr 1.1fr;}
+  .revenu .txt{text-align:left;display:flex;flex-direction:column;justify-content:center;}
+  .revenu p{margin-left:0;}
+  .commission .chaine{flex-direction:row;align-items:center;max-width:none;}
+  .commission .maillon{flex:1;display:flex;align-items:center;justify-content:center;}
+  .commission .fleche{transform:rotate(-90deg);}
+  footer .pied{grid-template-columns:1fr auto;align-items:start;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="barre">
+    <a class="logo" href="#haut">Co<span>Gîte</span></a>
+    <nav aria-label="Navigation principale">
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="haut">
+
+  <!-- ===== HERO : photo à gauche, texte à droite ===== -->
+  <section class="hero">
+    <div class="conteneur">
+      <div class="grille">
+        <figure>
+          <img src="assets/hero-salon.webp" alt="Salon lumineux d'un gîte pris en charge par CoGîte" width="1100" height="733" fetchpriority="high">
+        </figure>
+        <div>
+          <span class="etiquette">Hainaut — Silly &amp; 30 km alentour</span>
+          <h1>CoGîte — Votre location courte durée, gérée pour vous. Vous n'avez plus qu'à publier l'annonce.</h1>
+          <p>Vous reprenez votre temps — et vous gagnez plus, même après commission : une annonce optimisée et des voyageurs bien accueillis remplissent mieux votre calendrier. Votre compte, vos paiements, vos grandes décisions. Tout le reste, c'est nous.</p>
+          <a class="btn" href="#contact">Audit gratuit de votre bien</a>
+        </div>
+      </div>
+    </div>
+    <p class="bandeau-communes"><strong>Silly</strong> · Ath · Lessines · Enghien · Soignies · Brugelette · Chièvres · Mons</p>
+  </section>
+
+  <!-- ===== 5 BÉNÉFICES ===== -->
+  <section class="benefices" aria-label="Vos bénéfices">
+    <div class="conteneur">
+      <ul>
+        <li><span class="icone" aria-hidden="true">⏱️</span>Zéro charge quotidienne</li>
+        <li><span class="icone" aria-hidden="true">📈</span>Annonce optimisée</li>
+        <li><span class="icone" aria-hidden="true">💶</span>Revenus maximisés</li>
+        <li><span class="icone" aria-hidden="true">🔑</span>Votre compte, vos paiements</li>
+        <li><span class="icone" aria-hidden="true">📍</span>Présence locale &lt; 30 min</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== 3 PROMESSES ===== -->
+  <section class="promesses">
+    <div class="conteneur">
+      <h2>Ce que vous y gagnez</h2>
+      <div class="colonnes">
+        <article class="colonne">
+          <span class="num" aria-hidden="true">1</span>
+          <h3>Un temps retrouvé, totalement</h3>
+          <p>Après la publication de votre annonce, vous ne gérez plus rien au quotidien : messages voyageurs, arrivées, départs, ménage, imprévus. Votre implication se limite à valider les grandes décisions, quand il y en a une.</p>
+        </article>
+        <article class="colonne">
+          <span class="num" aria-hidden="true">2</span>
+          <h3>Plus de revenus, même après commission</h3>
+          <p>Une annonce mieux écrite et mieux photographiée attire plus de voyageurs, obtient de meilleures notes et remonte dans les résultats de recherche. Un calendrier mieux rempli rapporte plus qu'une gestion seule — commission comprise.</p>
+        </article>
+        <article class="colonne">
+          <span class="num" aria-hidden="true">3</span>
+          <h3>La tranquillité, vérifiable</h3>
+          <p>Votre compte sur les plateformes reste à votre nom et les paiements des voyageurs arrivent directement chez vous. Vous voyez chaque réservation et chaque euro en temps réel : la confiance se contrôle, elle ne se promet pas.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 6 SERVICES + 2 PHOTOS INTERCALÉES ===== -->
+  <section id="services">
+    <div class="conteneur">
+      <h2>Ce qu'on fait à votre place</h2>
+      <ul class="services-liste">
+        <li class="phare">
+          <span class="badge">Service phare</span>
+          <h3><strong>Création et optimisation de votre annonce</strong></h3>
+          <p>Titre, description, mise en valeur de vos équipements et de votre région : je rédige une annonce qui donne envie et qui convertit. Si vos photos ne rendent pas justice au bien, je me déplace pour en réaliser de meilleures. C'est le levier n° 1 de vos revenus — c'est pour ça que j'y consacre le plus de soin.</p>
+        </li>
+        <li>
+          <h3><strong>Tarification optimisée</strong></h3>
+          <p>Je vous propose des prix ajustés en continu selon la saison, les événements et la demande locale (Pairi Daiza, événements à Mons, tourisme vert du Hainaut occidental…). Ni trop bas — vous perdez de la marge — ni trop haut — vous perdez des réservations.</p>
+        </li>
+      </ul>
+      <figure class="photo-inter">
+        <img src="assets/cuisine.webp" alt="Cuisine et coin repas d'un logement géré par CoGîte" width="760" height="507" loading="lazy">
+      </figure>
+      <ul class="services-liste">
+        <li>
+          <h3><strong>Communication avec les voyageurs</strong></h3>
+          <p>Réponses rapides aux demandes, instructions d'arrivée, assistance pendant le séjour, message de départ et relance d'avis. La réactivité est un critère de classement des plateformes : elle est assurée tous les jours, y compris le week-end.</p>
+        </li>
+        <li>
+          <h3><strong>Accueil et remise des clés</strong></h3>
+          <p>Accueil en personne ou via boîte à clés sécurisée, présentation du logement, état des lieux d'entrée et de sortie. Un voyageur bien reçu laisse un meilleur avis — et les avis font les futures réservations.</p>
+        </li>
+      </ul>
+      <figure class="photo-inter">
+        <img src="assets/espace-vie.webp" alt="Espace de vie verdoyant d'un gîte de la zone CoGîte" width="760" height="565" loading="lazy">
+      </figure>
+      <ul class="services-liste">
+        <li>
+          <h3><strong>Coordination du ménage professionnel</strong></h3>
+          <p>Je coordonne personnellement le ménage entre chaque séjour : planification, exécution déléguée à des professionnels locaux, gestion du linge, contrôle qualité après chaque passage. Le coût est couvert par les frais de ménage payés par le voyageur via votre annonce.</p>
+        </li>
+        <li>
+          <h3><strong>Co-hébergement au quotidien</strong></h3>
+          <p>La gestion courante de votre bien pendant toute la durée du contrat : calendrier tenu à jour, ajustements proposés, petits problèmes réglés avant qu'ils ne deviennent des avis négatifs. Vous êtes informé, jamais sollicité pour l'opérationnel.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== COMMENT ÇA MARCHE ===== -->
+  <section class="etapes">
+    <div class="conteneur">
+      <h2>Comment ça marche</h2>
+      <ol>
+        <li>
+          <h3>Audit gratuit de votre bien</h3>
+          <p>Je visite votre logement (ou on échange en visio), j'analyse son potentiel locatif dans votre commune, et je vous remets une estimation écrite : revenu indicatif, équipements à prévoir, points d'amélioration de l'annonce.</p>
+        </li>
+        <li>
+          <h3>Vous publiez, je prépare tout</h3>
+          <p>Je rédige et optimise votre annonce, je prépare la grille tarifaire, j'organise le ménage et l'accueil. Vous publiez l'annonce depuis votre propre compte — il reste à votre nom, les paiements arrivent chez vous.</p>
+        </li>
+        <li>
+          <h3>Je m'occupe de tout, vous validez</h3>
+          <p>Les réservations arrivent : voyageurs, clés, ménage, tarifs, imprévus — c'est mon quotidien, plus le vôtre. Vous validez uniquement les grandes décisions, et vous suivez tout depuis votre compte.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== À PROPOS (fond vert foncé) ===== -->
+  <section class="apropos">
+    <div class="conteneur">
+      <h2>Qui se cache derrière CoGîte ?</h2>
+      <div class="bloc">
+        <!-- REMPLACER : photo portrait de Thomas -->
+        <div class="photo-placeholder" role="img" aria-label="Emplacement réservé pour la photo de Thomas">
+          PORTRAIT<br>À VENIR
+        </div>
+        <div>
+          <h3>Moi, c'est Thomas — votre interlocuteur unique</h3>
+          <p>Je suis basé à Silly et je lance CoGîte en tant qu'indépendant complémentaire, en entreprise personne physique. Pas de plateforme anonyme, pas de standard téléphonique : la personne qui gère votre bien au quotidien est celle à qui vous parlez.</p>
+          <p>Mon modèle est volontairement simple : je vends une prestation de services et je prends en charge tout l'opérationnel de votre location. Votre annonce et votre compte vous appartiennent, vos revenus arrivent sur votre compte bancaire, et vous pouvez arrêter quand vous voulez. C'est ce qui me permet de démarrer avec un tarif juste et sans frais cachés.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3 CARTES CONFIANCE ===== -->
+  <section class="confiance">
+    <div class="conteneur">
+      <h2>Pourquoi me faire confiance dès le premier bien</h2>
+      <div class="cartes">
+        <article class="carte">
+          <h3>Votre compte, vos paiements</h3>
+          <p>CoGîte n'encaisse jamais l'argent de vos voyageurs et votre compte sur les plateformes reste à votre nom. Vous voyez chaque réservation et chaque euro en temps réel. La confiance n'a pas besoin d'être déclarée : elle est vérifiable à tout moment.</p>
+        </article>
+        <article class="carte">
+          <h3>Une présence vraiment locale</h3>
+          <p>Je suis basé à Silly et j'interviens dans un rayon volontairement resserré. Moins de 30 minutes de route, c'est la garantie d'être sur place quand un voyageur arrive, qu'un problème survient ou qu'un état des lieux doit être fait.</p>
+        </article>
+        <article class="carte">
+          <h3>Un ménage coordonné personnellement</h3>
+          <p>Pas de sous-traitance anonyme : je planifie chaque rotation, je délègue l'exécution à des professionnels locaux et je contrôle le résultat après chaque passage. Votre bien est rendu prêt pour le séjour suivant, à chaque fois.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== POURQUOI LA COMMISSION NE COÛTE RIEN ===== -->
+  <section class="commission">
+    <div class="conteneur">
+      <h2 style="text-align:center;">Pourquoi la commission ne vous coûte rien</h2>
+      <p class="intro">Une commission de 15 % puis 18 % ne retire rien à votre revenu : elle l'augmente. La logique est une chaîne de cause à effet que les plateformes elles-mêmes récompensent.</p>
+      <div class="chaine" role="list">
+        <div class="maillon" role="listitem">Annonce optimisée<br>(texte + photos)</div>
+        <div class="fleche" aria-hidden="true">↓</div>
+        <div class="maillon" role="listitem">Meilleure expérience voyageur<br>→ meilleures notes</div>
+        <div class="fleche" aria-hidden="true">↓</div>
+        <div class="maillon" role="listitem">Meilleur classement<br>dans les recherches</div>
+        <div class="fleche" aria-hidden="true">↓</div>
+        <div class="maillon" role="listitem">Calendrier<br>mieux rempli</div>
+        <div class="fleche" aria-hidden="true">↓</div>
+        <div class="maillon final" role="listitem">Revenu supérieur,<br>même après commission</div>
+      </div>
+      <p class="intro">L'audit gratuit chiffre ce potentiel pour votre bien, commune par commune.</p>
+    </div>
+  </section>
+
+  <!-- ===== TARIFS ===== -->
+  <section class="tarifs" style="padding-top:0;">
+    <div class="conteneur">
+      <h2>Nos offres</h2>
+      <div class="grille">
+        <article class="tarif vedette">
+          <span class="badge">Tarif de lancement</span>
+          <h3>Gestion complète</h3>
+          <p class="prix">15 % <small style="font-size:1rem;font-weight:600;color:var(--texte);">les 3 premiers mois</small></p>
+          <p class="prix-suite">puis 18 % ensuite<small>si vous poursuivez après la période d'essai</small></p>
+          <ul>
+            <li>Commission sur le revenu locatif, hors frais de ménage payés par le voyageur</li>
+            <li>Période d'essai de 3 mois au tarif réduit de 15 %</li>
+            <li>Annonce créée et optimisée (texte, photos)</li>
+            <li>Tarification ajustée selon saison et demande locale</li>
+            <li>Voyageurs, accueil, ménage, imprévus : tout est pris en charge</li>
+            <li>Vous validez les grandes décisions, et c'est tout</li>
+            <li>Sans engagement : préavis d'un mois, même après l'essai</li>
+          </ul>
+          <a class="btn" href="#contact">Demander un audit gratuit</a>
+        </article>
+        <article class="tarif">
+          <h3>Optimisation d'annonce seule</h3>
+          <p class="prix">250 €</p>
+          <ul>
+            <li>Réécriture complète de votre annonce</li>
+            <li>Photos améliorées sur place si nécessaire</li>
+            <li>Grille tarifaire de départ fournie</li>
+            <li>Forfait unique — vous gérez ensuite vous-même</li>
+          </ul>
+          <a class="btn btn-contour" href="#contact">Booster mon annonce</a>
+        </article>
+      </div>
+
+      <!-- ===== BLOC REVENU + PHOTO EXTÉRIEUR ===== -->
+      <div class="revenu">
+        <div class="grille">
+          <figure>
+            <img src="assets/exterieur-revenu.webp" alt="Maison de vacances en lisière de forêt au lever du soleil, dans la zone Pairi Daiza" width="860" height="572" loading="lazy">
+          </figure>
+          <div class="txt">
+            <h3>Combien peut rapporter votre bien ?</h3>
+            <p class="fourchette">400 € à 1 200 € / mois</p>
+            <p>Fourchette indicative pour un logement entier dans notre zone, selon la taille, l'équipement et la saison. Chaque bien est différent : l'audit gratuit vous donne une estimation écrite et argumentée pour le vôtre.</p>
+            <a class="btn" href="#contact">Audit gratuit de votre bien</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="faq" class="faq">
+    <div class="conteneur">
+      <h2>Questions fréquentes</h2>
+      <details>
+        <summary>Qu'est-ce que je dois encore faire moi-même ?</summary>
+        <p>Deux choses : publier l'annonce initiale depuis votre compte (je vous la fournis prête à l'emploi), et valider les grandes décisions quand elles se présentent. Tout le reste — voyageurs, clés, ménage, tarifs, imprévus — est pris en charge au quotidien.</p>
+      </details>
+      <details>
+        <summary>Qui encaisse les paiements des voyageurs ?</summary>
+        <p>Vous, et uniquement vous. Vous restez seul titulaire de votre compte Airbnb ou Booking et seul destinataire des loyers. CoGîte ne touche jamais l'argent des voyageurs : je vous facture ma commission sur la base de vos revenus réels.</p>
+      </details>
+      <details>
+        <summary>Comment fonctionne la commission de 15 % puis 18 % ?</summary>
+        <p>Le contrat démarre par une période d'essai de 3 mois à 15 % du revenu locatif hors ménage — le temps de prouver la valeur du service sur votre bien. Si vous poursuivez au-delà, la commission passe à 18 %. Dans les deux cas, elle s'autofinance par le remplissage : une annonce optimisée obtient de meilleures notes, remonte dans les résultats de recherche et se réserve plus souvent, ce qui dépasse le revenu d'une gestion en solo, commission comprise. L'audit gratuit chiffre ce potentiel pour votre bien.</p>
+      </details>
+      <details>
+        <summary>Quelle zone couvrez-vous ?</summary>
+        <p>Silly et un rayon d'environ 20 à 30 km : Ath, Lessines, Enghien, Soignies, Brugelette, Chièvres, Mons et les communes voisines. Cette limite est volontaire : elle garantit une présence physique en moins de 30 minutes en cas d'imprévu.</p>
+      </details>
+      <details>
+        <summary>Qui fait le ménage entre les séjours ?</summary>
+        <p>Je coordonne personnellement chaque rotation : planification, contrôle qualité après passage, gestion du linge. L'exécution est déléguée à des professionnels locaux. Le coût est couvert par les frais de ménage payés par le voyageur — il ne pèse pas sur votre marge.</p>
+      </details>
+      <details>
+        <summary>Suis-je engagé sur une durée minimale ?</summary>
+        <p>Non. Les 3 premiers mois forment une période d'essai au tarif réduit de 15 % : vous testez le service en conditions réelles, sur vos revenus réels. Si vous poursuivez après l'essai, la commission passe à 18 % — et vous pouvez toujours arrêter à tout moment avec un préavis d'un mois. Vous repartez avec votre annonce, vos avis et votre compte : tout vous appartient.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT (fond vert foncé) ===== -->
+  <section id="contact" class="contact">
+    <div class="conteneur">
+      <h2>Parlons de votre bien</h2>
+      <form id="form-contact" action="https://formspree.io/f/mqpzvqwp" method="POST">
+        <input type="hidden" name="_subject" value="Nouvelle demande d'audit — CoGîte">
+
+        <label for="nom">Votre nom</label>
+        <input type="text" id="nom" name="nom" autocomplete="name" required>
+
+        <label for="email">Votre e-mail</label>
+        <input type="email" id="email" name="email" autocomplete="email" required>
+
+        <label for="telephone">Votre téléphone <small style="font-weight:400;color:var(--texte-doux);">(optionnel)</small></label>
+        <input type="tel" id="telephone" name="telephone" autocomplete="tel">
+
+        <label for="commune">Commune du bien</label>
+        <select id="commune" name="commune" required>
+          <option value="">— Choisir —</option>
+          <option>Silly</option>
+          <option>Ath</option>
+          <option>Lessines</option>
+          <option>Enghien</option>
+          <option>Soignies</option>
+          <option>Brugelette</option>
+          <option>Chièvres</option>
+          <option>Mons</option>
+          <option>Autre</option>
+        </select>
+
+        <label for="type_bien">Type de bien</label>
+        <select id="type_bien" name="type_bien" required>
+          <option value="">— Choisir —</option>
+          <option>Airbnb / location courte durée existant</option>
+          <option>Maison d'hôtes</option>
+          <option>Bien pas encore mis en location</option>
+        </select>
+
+        <label for="nb_logements">Nombre de logements concernés</label>
+        <input type="number" id="nb_logements" name="nb_logements" min="1" step="1" inputmode="numeric" required>
+
+        <label for="lien_annonce">Lien vers votre annonce actuelle <small style="font-weight:400;color:var(--texte-doux);">(si elle existe — optionnel)</small></label>
+        <input type="text" id="lien_annonce" name="lien_annonce" inputmode="url" placeholder="https://www.airbnb.be/rooms/…">
+
+        <label for="message">Votre message</label>
+        <textarea id="message" name="message" rows="5" placeholder="Décrivez votre bien et votre projet en quelques lignes…" required></textarea>
+
+        <button class="btn" type="submit">Envoyer ma demande d'audit gratuit</button>
+        <p class="form-note" id="form-note" role="status" aria-live="polite">Réponse sous 24 h ouvrées. Vos données ne servent qu'à vous recontacter.</p>
+      </form>
+      <div class="form-confirmation" id="form-confirmation" hidden>
+        <span class="icone" aria-hidden="true">✅</span>
+        <h3>Demande envoyée</h3>
+        <p>Merci ! Votre demande d'audit gratuit est bien arrivée. Je vous réponds sous 24 h ouvrées.<br>— Thomas, CoGîte</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="conteneur pied">
+    <div>
+      <p class="marque">CoGîte</p>
+      <p>Conciergerie et co-hébergement pour locations courte durée.<br>
+      Silly et 30 km alentour — Hainaut, Belgique.<br>
+      Entreprise personne physique — Thomas, indépendant complémentaire.</p>
+      <p>Contact : <a href="mailto:contact@cogite.be">contact@cogite.be</a></p>
+    </div>
+    <nav aria-label="Liens légaux" class="legal">
+      <a href="#">Mentions légales</a>
+      <a href="#">Politique de confidentialité</a>
+      <a href="#">Conditions générales de prestation</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  // FAQ : une seule question ouverte à la fois
+  document.querySelectorAll('.faq details').forEach(function(d){
+    d.addEventListener('toggle',function(){
+      if(d.open){
+        document.querySelectorAll('.faq details[open]').forEach(function(o){
+          if(o!==d){o.open=false;}
+        });
+      }
+    });
+  });
+
+  // Formulaire : fetch vers l'action Formspree (https://formspree.io/f/mqpzvqwp),
+  // confirmation sans rechargement. Sans JS, le POST classique fonctionne (redirection Formspree).
+  (function(){
+    var form=document.getElementById('form-contact');
+    var note=document.getElementById('form-note');
+    var confirmation=document.getElementById('form-confirmation');
+    form.addEventListener('submit',function(e){
+      e.preventDefault();
+      if(!form.checkValidity()){
+        form.reportValidity();
+        return;
+      }
+      var bouton=form.querySelector('button[type="submit"]');
+      bouton.disabled=true;
+      note.textContent='Envoi en cours…';
+      fetch(form.action,{
+        method:'POST',
+        body:new FormData(form),
+        headers:{'Accept':'application/json'}
+      }).then(function(reponse){
+        if(reponse.ok){
+          form.hidden=true;
+          confirmation.hidden=false;
+          confirmation.scrollIntoView({behavior:'smooth',block:'center'});
+        }else{
+          bouton.disabled=false;
+          note.textContent='L’envoi a échoué. Réessayez, ou écrivez directement à contact@cogite.be.';
+        }
+      }).catch(function(){
+        bouton.disabled=false;
+        note.textContent='Connexion impossible. Réessayez, ou écrivez directement à contact@cogite.be.';
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
